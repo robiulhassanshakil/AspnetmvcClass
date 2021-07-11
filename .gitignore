@@ -1,5 +1,14 @@
+<<<<<<< HEAD
 **/.vs
 **/bin
 **/obj
 **/*.user
 **/Prep
+=======
+**/.vs
+**/bin
+**/obj
+**/*.user
+**/Prep
+**/Logs
+>>>>>>> 99a848cf1688475b723030e6442233ae802d0f24
