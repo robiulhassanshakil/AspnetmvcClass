@@ -31,6 +31,7 @@ namespace FirstDemo.Data
         }
 
         public DbSet<Course> Courses { get; set; }
+        public DbSet<Topic> Topics { get; set; }
         public DbSet<Student> Students { get; set; }
     }
 }
