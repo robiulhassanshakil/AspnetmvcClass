@@ -4,14 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FirstDemo.Data
+namespace FirstDemo.Training.Entities
 {
-    public class Topic
+    public class Student
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public int CourseId { get; set; }
-        public Course Course { get; set; }
+        public DateTime DateofBirth { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FirstDemo.Data
+namespace FirstDemo.Training.Entities
 {
     public class Course
     {

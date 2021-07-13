@@ -26,12 +26,12 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="wwwroot\sass\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FirstDemo.Data\FirstDemo.Data.csproj" />
+    <ProjectReference Include="..\FirstDemo.Training\FirstDemo.Training.csproj" />
   </ItemGroup>
 
 </Project>

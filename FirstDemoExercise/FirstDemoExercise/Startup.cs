@@ -15,7 +15,8 @@ using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using FirstDemoExercise.Services;
-using FirstDemo.Data;
+using FirstDemo.Training;
+using FirstDemo.Training.Contexts;
 
 namespace FirstDemoExercise
 {
@@ -35,7 +36,7 @@ namespace FirstDemoExercise
         public void ConfigureContainer(ContainerBuilder builder)
         {
             var connectionInfo = GetConnectionStringAndAssemblyName();
-            builder.RegisterModule(new DataModule(connectionInfo.connectionString, connectionInfo.migrationAssemblyName));
+            builder.RegisterModule(new TrainingModule(connectionInfo.connectionString, connectionInfo.migrationAssemblyName));
             builder.RegisterModule(new WebModule());
         }
 

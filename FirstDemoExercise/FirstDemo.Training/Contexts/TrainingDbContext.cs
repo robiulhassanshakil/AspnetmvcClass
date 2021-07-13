@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FirstDemo.Training.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace FirstDemo.Data
+namespace FirstDemo.Training.Contexts
 {
     public class TrainingDbContext : DbContext
     {
