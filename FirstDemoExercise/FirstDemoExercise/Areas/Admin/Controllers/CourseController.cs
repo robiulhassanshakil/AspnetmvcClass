@@ -7,12 +7,14 @@ using FirstDemoExercise.Areas.Admin.Models;
 
 namespace FirstDemoExercise.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CourseController : Controller
     {
         public IActionResult Index()
         {
             var model = new CourseListModel();
-            return View();
+            model.LoadModelData();
+            return View(model);
         }
     }
 }

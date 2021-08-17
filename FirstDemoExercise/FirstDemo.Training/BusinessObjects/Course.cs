@@ -8,5 +8,7 @@ namespace FirstDemo.Training.BusinessObjects
 {
     public class Course
     {
+        public string Title { get; set; }
+        public double Fees { get; set; }
     }
 }

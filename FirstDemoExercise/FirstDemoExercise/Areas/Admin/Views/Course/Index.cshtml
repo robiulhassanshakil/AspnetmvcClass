@@ -1,7 +1,35 @@
-﻿
+﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@model CourseListModel
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Courses</h1>
+
+
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+        table {
+            width: 100%;
+        }
+    </style>
+    <table>
+    <tr>
+        <th>Courses</th>
+        <th>Fees</th>
+    </tr>
+        @{foreach (var course in Model.Courses)
+       {
+           <tr>
+           <td>@course.Title</td>
+            
+           <td>@course.Fees</td>
+        </tr>
+       }
+        } 
+
+    </table>
+
 
