@@ -34,6 +34,9 @@ namespace AttendenceManagementSystem.Attendence.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Student>()
+                .HasMany(s => s.Attendances)
+                .WithOne(a => a.Student);
 
             base.OnModelCreating(modelBuilder);
         }

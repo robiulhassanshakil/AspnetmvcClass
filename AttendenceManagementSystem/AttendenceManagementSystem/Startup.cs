@@ -38,7 +38,7 @@ namespace AttendenceManagementSystem
         public static ILifetimeScope AutofacContainer { get; set; }
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            var connectionInfo= GetconnectionStringAndmigrationAssemblyName();
+            var connectionInfo= GetConnectionStringAndMigrationAssemblyName();
 
             builder.RegisterModule(new AttendenceModule(connectionInfo.connectionString,
                 connectionInfo.migrationAssemblyName));
@@ -48,7 +48,7 @@ namespace AttendenceManagementSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionInfo = GetconnectionStringAndmigrationAssemblyName();
+            var connectionInfo = GetConnectionStringAndMigrationAssemblyName();
 
             services.AddDbContext<AttendenceDbContext>(options =>
                 options.UseSqlServer(connectionInfo.connectionString,m=>m.MigrationsAssembly(connectionInfo.migrationAssemblyName)));
@@ -123,7 +123,7 @@ namespace AttendenceManagementSystem
             });
         }
 
-        private (string connectionString, string migrationAssemblyName) GetconnectionStringAndmigrationAssemblyName()
+        private (string connectionString, string migrationAssemblyName) GetConnectionStringAndMigrationAssemblyName()
         {
             var connectionStringName = "DefaultConnection";
             var connectionString = Configuration.GetConnectionString(connectionStringName);
