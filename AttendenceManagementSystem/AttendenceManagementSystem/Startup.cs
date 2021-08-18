@@ -12,8 +12,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AttendenceManagementSystem.Attendence;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using AttendenceManagementSystem.Attendence.Contexts;
 
 namespace AttendenceManagementSystem
 {
@@ -36,18 +38,24 @@ namespace AttendenceManagementSystem
         public static ILifetimeScope AutofacContainer { get; set; }
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            var connectionStringName = "DevSkillDb";
-            var connectionString = Configuration.GetConnectionString(connectionStringName);
-            var migrationAssemblyName = typeof(Startup).Assembly.FullName;
+            var connectionInfo= GetconnectionStringAndmigrationAssemblyName();
 
+            builder.RegisterModule(new AttendenceModule(connectionInfo.connectionString,
+                connectionInfo.migrationAssemblyName));
             builder.RegisterModule(new WebModule());
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionInfo = GetconnectionStringAndmigrationAssemblyName();
+
+            services.AddDbContext<AttendenceDbContext>(options =>
+                options.UseSqlServer(connectionInfo.connectionString,m=>m.MigrationsAssembly(connectionInfo.migrationAssemblyName)));
+
+
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(connectionInfo.connectionString));
             
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -113,6 +121,15 @@ namespace AttendenceManagementSystem
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+        }
+
+        private (string connectionString, string migrationAssemblyName) GetconnectionStringAndmigrationAssemblyName()
+        {
+            var connectionStringName = "DefaultConnection";
+            var connectionString = Configuration.GetConnectionString(connectionStringName);
+            var migrationAssemblyName = typeof(Startup).Assembly.FullName;
+
+            return (connectionString, migrationAssemblyName);
         }
     }
 }

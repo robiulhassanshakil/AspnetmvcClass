@@ -24,4 +24,8 @@
     <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AttendenceManagementSystem.Attendence\AttendenceManagementSystem.Attendence.csproj" />
+  </ItemGroup>
+
 </Project>
