@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AttendenceManagementSystem", "AttendenceManagementSystem\AttendenceManagementSystem.csproj", "{789375C6-162A-438F-AF2C-203DE83B1B58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttendenceManagementSystem.Attendence", "AttendenceManagementSystem.Attendence\AttendenceManagementSystem.Attendence.csproj", "{DE39940B-7C7F-4293-B980-80C46A3B64FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AttendenceManagementSystem.Attendence", "AttendenceManagementSystem.Attendence\AttendenceManagementSystem.Attendence.csproj", "{DE39940B-7C7F-4293-B980-80C46A3B64FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttendenceManagementSystem.Data", "AttendenceManagementSystem.Data\AttendenceManagementSystem.Data.csproj", "{F4800612-9934-48A1-B6A6-DE89D39FECDD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{DE39940B-7C7F-4293-B980-80C46A3B64FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE39940B-7C7F-4293-B980-80C46A3B64FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE39940B-7C7F-4293-B980-80C46A3B64FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4800612-9934-48A1-B6A6-DE89D39FECDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4800612-9934-48A1-B6A6-DE89D39FECDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4800612-9934-48A1-B6A6-DE89D39FECDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4800612-9934-48A1-B6A6-DE89D39FECDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
