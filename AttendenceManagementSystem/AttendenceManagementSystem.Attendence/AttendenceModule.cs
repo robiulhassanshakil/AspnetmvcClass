@@ -35,16 +35,16 @@ namespace AttendenceManagementSystem.Attendence
                 .InstancePerLifetimeScope();
 
             builder.RegisterType<AttendenceUniteOfWork>().As<IAttendenceUniteOfWork>()
-                .InstancePerMatchingLifetimeScope();
+                .InstancePerLifetimeScope();
 
-            builder.RegisterType<AttdenceService>().As<IAttdenceService>()
-                .InstancePerMatchingLifetimeScope();
+            builder.RegisterType<AttendenceService>().As<IAttendenceService>()
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<StudentRepository>().As<IStudentRepository>()
-                .InstancePerMatchingLifetimeScope();
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<AttendenceRepository>().As<IAttendenceRepository>()
-                .InstancePerMatchingLifetimeScope();
+                .InstancePerLifetimeScope();
 
             
 

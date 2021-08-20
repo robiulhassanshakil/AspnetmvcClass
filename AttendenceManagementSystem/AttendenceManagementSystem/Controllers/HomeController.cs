@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using AttendenceManagementSystem.Areas.Admin.Models;
 
 namespace AttendenceManagementSystem.Controllers
 {
@@ -20,7 +21,8 @@ namespace AttendenceManagementSystem.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var model = new StudentListModel();
+            return View(model);
         }
 
         public IActionResult Privacy()
