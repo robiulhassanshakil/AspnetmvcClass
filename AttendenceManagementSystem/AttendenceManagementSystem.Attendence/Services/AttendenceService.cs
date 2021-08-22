@@ -27,6 +27,27 @@ namespace AttendenceManagementSystem.Attendence.Services
             _attendenceUniteOfWork.Save();
         }
 
+        public void DeleteStudent(int id)
+        {
+            _attendenceUniteOfWork.Students.Remove(id);
+            _attendenceUniteOfWork.Save();
+        }
+
+        public Student GetStudent(int id)
+        {
+            var student = _attendenceUniteOfWork.Students.GetById(id);
+
+            if (student == null) return null;
+
+            return new Student()
+            {
+                Id = student.Id,
+                Name = student.Name,
+                StudentRollNumber = student.StudentRollNumber
+
+            };
+        }
+
         public (IList<Student> records, int total, int totalDisplay) GetStudents(int pageIndex, int pageSize, string searchText, string sortText)
         {
             var studentData = _attendenceUniteOfWork.Students.GetDynamic(
@@ -41,6 +62,27 @@ namespace AttendenceManagementSystem.Attendence.Services
                 })).ToList();
 
             return (resultData, studentData.total, studentData.totalDisplay);
+        }
+
+        public void UpdateStudent(Student student)
+        {
+            if (student==null)
+            {
+                throw new InvalidOperationException("Student is messing");
+            }
+
+            var studentEntity = _attendenceUniteOfWork.Students.GetById(student.Id);
+            if (studentEntity != null)
+            {
+                studentEntity.Name = student.Name;
+                studentEntity.StudentRollNumber = student.StudentRollNumber;
+                
+                _attendenceUniteOfWork.Save();
+            }
+            else
+            {
+                throw new InvalidOperationException("Couldn't find Student");
+            }
         }
     }
 }

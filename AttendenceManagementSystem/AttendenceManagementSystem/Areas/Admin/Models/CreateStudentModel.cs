@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using AttendenceManagementSystem.Attendence.BusinessObjects;
@@ -10,7 +11,10 @@ namespace AttendenceManagementSystem.Areas.Admin.Models
 {
     public class CreateStudentModel
     {
+        [Required, MaxLength(200, ErrorMessage = "Name should be less than 200 charecters")]
         public string Name { get; set; }
+
+        [Required, Range(1, 50000)]
         public int StudentRollNumber { get; set; }
 
         private readonly IAttendenceService _attendenceService;

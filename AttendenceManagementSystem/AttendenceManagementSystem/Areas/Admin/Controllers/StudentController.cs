@@ -53,5 +53,31 @@ namespace AttendenceManagementSystem.Areas.Admin.Controllers
             }
             return View(model);
         }
+
+        public IActionResult Edit(int id)
+        {
+            var model = new EditStudentModel();
+            model.LoadModelData(id);
+
+            return View(model);
+        }
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult Edit(EditStudentModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Update();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            var model = new StudentListModel();
+            model.Delete(id);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
