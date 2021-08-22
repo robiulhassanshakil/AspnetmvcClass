@@ -12,6 +12,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 
 namespace ECommerceSystem.Web
 {
@@ -31,15 +33,21 @@ namespace ECommerceSystem.Web
         }
         public IConfiguration Configuration { get; }
         public IWebHostEnvironment WebHostEnvironment { get; set; }
+        public static ILifetimeScope AutofacContainer { get; set; }
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            
+            builder.RegisterModule(new WebModule());
+        }
+
 
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-          
+            var connectionInfo = GetConnectionstringAndMigrationAssemblyName();
+
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionInfo.connectionString));
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -60,7 +68,6 @@ namespace ECommerceSystem.Web
                 options.Cookie.IsEssential = true;
             });
 
-
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();
             services.AddRazorPages();
@@ -70,6 +77,8 @@ namespace ECommerceSystem.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            AutofacContainer = app.ApplicationServices.GetAutofacRoot();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -101,5 +110,14 @@ namespace ECommerceSystem.Web
                 endpoints.MapRazorPages();
             });
         }
+
+        private (string connectionString, string migrationAssemblyName) GetConnectionstringAndMigrationAssemblyName()
+        {
+            var connectionStringName = "DefaultConnection";
+            var connectionString = Configuration.GetConnectionString(connectionStringName);
+            var migrationAssemblyName = typeof(Startup).Assembly.FullName;
+            return (connectionString,migrationAssemblyName);
+        }
+
     }
 }
