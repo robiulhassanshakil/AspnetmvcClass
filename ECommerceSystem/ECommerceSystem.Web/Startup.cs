@@ -40,12 +40,10 @@ namespace ECommerceSystem.Web
             builder.RegisterModule(new WebModule());
         }
 
-
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionInfo = GetConnectionstringAndMigrationAssemblyName();
+            var connectionInfo = GetConnectionStringAndMigrationAssemblyName();
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionInfo.connectionString));
 
@@ -111,7 +109,7 @@ namespace ECommerceSystem.Web
             });
         }
 
-        private (string connectionString, string migrationAssemblyName) GetConnectionstringAndMigrationAssemblyName()
+        private (string connectionString, string migrationAssemblyName) GetConnectionStringAndMigrationAssemblyName()
         {
             var connectionStringName = "DefaultConnection";
             var connectionString = Configuration.GetConnectionString(connectionStringName);
