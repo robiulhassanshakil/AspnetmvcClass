@@ -27,4 +27,8 @@
     <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ECommerceSystem.Profile\ECommerceSystem.Profile.csproj" />
+  </ItemGroup>
+
 </Project>

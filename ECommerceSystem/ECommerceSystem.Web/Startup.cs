@@ -14,6 +14,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using ECommerceSystem.Profile;
+using ECommerceSystem.Profile.Contexts;
 
 namespace ECommerceSystem.Web
 {
@@ -36,7 +38,9 @@ namespace ECommerceSystem.Web
         public static ILifetimeScope AutofacContainer { get; set; }
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            
+            var connectionInfo = GetConnectionStringAndMigrationAssemblyName();
+
+            builder.RegisterModule(new ProfileModule(connectionInfo.connectionString,connectionInfo.migrationAssemblyName));
             builder.RegisterModule(new WebModule());
         }
 
@@ -44,6 +48,9 @@ namespace ECommerceSystem.Web
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionInfo = GetConnectionStringAndMigrationAssemblyName();
+
+            services.AddDbContext<ProductDbContext>(option=>option.UseSqlServer(connectionInfo.connectionString,
+                m=>m.MigrationsAssembly(connectionInfo.migrationAssemblyName)));
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionInfo.connectionString));
 
