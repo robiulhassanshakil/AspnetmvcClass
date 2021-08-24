@@ -12,7 +12,7 @@ namespace ECommerceSystem.Profile.UniteOfWorks
 {
     public class ProductUniteOfWork : UnitOfWork, IProductUniteOfWork
     {
-        public IProductRepository Products { get; set; }
+        public IProductRepository Products { get; private set; }
 
         public ProductUniteOfWork(IProductDbContext context,
             IProductRepository product) : base((DbContext)context)
