@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Autofac;
 using ECommerceSystem.Profile.BusinessObjects;
 using ECommerceSystem.Profile.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace ECommerceSystem.Web.Areas.Admin.Models
 {
     public class EditProductModel
     {
         private readonly IProductService _productService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         public int Id { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
@@ -18,10 +20,12 @@ namespace ECommerceSystem.Web.Areas.Admin.Models
         public EditProductModel()
         {
             _productService = Startup.AutofacContainer.Resolve<IProductService>();
+            _httpContextAccessor= Startup.AutofacContainer.Resolve<IHttpContextAccessor>();
         }
-        public EditProductModel(IProductService productService)
+        public EditProductModel(IProductService productService, IHttpContextAccessor httpContextAccessor)
         {
             _productService = productService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         internal void LoadModelData(int id)
