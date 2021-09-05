@@ -5,25 +5,24 @@ using System.Text;
 using System.Threading.Tasks;
 using AttendenceManagementSystem.Attendence.BusinessObjects;
 using AttendenceManagementSystem.Attendence.UniteOfWork;
+using AutoMapper;
 
 namespace AttendenceManagementSystem.Attendence.Services
 {
     public class AttendenceService:IAttendenceService
     {
         private readonly IAttendenceUniteOfWork _attendenceUniteOfWork;
+        private readonly IMapper _mapper;
 
-        public AttendenceService(IAttendenceUniteOfWork attendenceUniteOfWork)
+        public AttendenceService(IAttendenceUniteOfWork attendenceUniteOfWork,IMapper mapper)
         {
             _attendenceUniteOfWork = attendenceUniteOfWork;
+            _mapper = mapper;
         }
 
         public void CreateStudent(Student student)
         {
-            _attendenceUniteOfWork.Students.Add(new Entities.Student()
-            {
-                Name = student.Name,
-                StudentRollNumber = student.StudentRollNumber
-            });
+            _attendenceUniteOfWork.Students.Add(_mapper.Map<Entities.Student>(student));
             _attendenceUniteOfWork.Save();
         }
 
@@ -39,13 +38,7 @@ namespace AttendenceManagementSystem.Attendence.Services
 
             if (student == null) return null;
 
-            return new Student()
-            {
-                Id = student.Id,
-                Name = student.Name,
-                StudentRollNumber = student.StudentRollNumber
-
-            };
+            return _mapper.Map<Student>(student);
         }
 
         public (IList<Student> records, int total, int totalDisplay) GetStudents(int pageIndex, int pageSize, string searchText, string sortText)
@@ -54,12 +47,7 @@ namespace AttendenceManagementSystem.Attendence.Services
                 string.IsNullOrWhiteSpace(searchText) ? null : x => x.Name.Contains(searchText),
                 sortText, string.Empty, pageIndex, pageSize);
             var resultData = (from student in studentData.data
-                select (new Student()
-                {
-                    Id = student.Id,
-                    Name = student.Name,
-                    StudentRollNumber = student.StudentRollNumber
-                })).ToList();
+                select (_mapper.Map<Student>(student))).ToList();
 
             return (resultData, studentData.total, studentData.totalDisplay);
         }
@@ -74,9 +62,7 @@ namespace AttendenceManagementSystem.Attendence.Services
             var studentEntity = _attendenceUniteOfWork.Students.GetById(student.Id);
             if (studentEntity != null)
             {
-                studentEntity.Name = student.Name;
-                studentEntity.StudentRollNumber = student.StudentRollNumber;
-                
+                _mapper.Map(student, studentEntity);
                 _attendenceUniteOfWork.Save();
             }
             else

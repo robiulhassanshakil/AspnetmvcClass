@@ -77,6 +77,7 @@ namespace AttendenceManagementSystem
                 options.Cookie.IsEssential = true;
             });
 
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();

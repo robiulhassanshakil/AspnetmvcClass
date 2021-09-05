@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AttendenceManagementSystem.Attendence.BusinessObjects;
 using Autofac;
+using AutoMapper;
+using Microsoft.AspNetCore.Http;
 
 namespace AttendenceManagementSystem.Areas.Admin.Models
 {
@@ -15,33 +17,37 @@ namespace AttendenceManagementSystem.Areas.Admin.Models
         public int? Id { get; set; }
         [Required, MaxLength(200, ErrorMessage = "Name should be less than 200 charecters")]
         public string Name { get; set; }
+        [Required, Range(1, 50000)]
+        public int StudentRollNumber { get; set; }
 
-        public int? StudentRollName { get; set; }
+        private readonly IAttendenceService _attendenceService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IMapper _mapper;
 
-        private readonly IAttendenceService _attendenceservice;
         public EditStudentModel()
         {
-            _attendenceservice = Startup.AutofacContainer.Resolve<IAttendenceService>();
+            _attendenceService = Startup.AutofacContainer.Resolve<IAttendenceService>();
+            _httpContextAccessor = Startup.AutofacContainer.Resolve<IHttpContextAccessor>();
+            _mapper= Startup.AutofacContainer.Resolve<IMapper>();
+        }
+        public EditStudentModel(IAttendenceService attendenceService, IHttpContextAccessor httpContextAccessor, IMapper mapper)
+        {
+            _attendenceService = attendenceService;
+            _httpContextAccessor = httpContextAccessor;
+            _mapper = mapper;
         }
 
         internal void LoadModelData(int id)
         {
-            var student = _attendenceservice.GetStudent(id);
+            var student = _attendenceService.GetStudent(id);
 
-            Id = student?.Id;
-            Name = student.Name;
-            StudentRollName = student?.StudentRollNumber;
+            _mapper.Map(student, this);
         }
 
         internal void Update()
         {
-            var student = new Student()
-            {
-                Id = Id.Value,
-                Name = Name,
-                StudentRollNumber = StudentRollName.HasValue ? StudentRollName.Value : 0
-            };
-            _attendenceservice.UpdateStudent(student);
+            var student = _mapper.Map<Student>(this);
+            _attendenceService.UpdateStudent(student);
         }
     }
    

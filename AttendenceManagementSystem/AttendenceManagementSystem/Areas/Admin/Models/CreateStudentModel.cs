@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using AttendenceManagementSystem.Attendence.BusinessObjects;
 using AttendenceManagementSystem.Attendence.Services;
 using Autofac;
+using AutoMapper;
+using Microsoft.AspNetCore.Http;
 
 namespace AttendenceManagementSystem.Areas.Admin.Models
 {
@@ -18,24 +20,26 @@ namespace AttendenceManagementSystem.Areas.Admin.Models
         public int StudentRollNumber { get; set; }
 
         private readonly IAttendenceService _attendenceService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IMapper _mapper;
 
         public CreateStudentModel()
         {
             _attendenceService = Startup.AutofacContainer.Resolve<IAttendenceService>();
+            _httpContextAccessor = Startup.AutofacContainer.Resolve<IHttpContextAccessor>();
+            _mapper= Startup.AutofacContainer.Resolve<IMapper>();
         }
 
-        public CreateStudentModel(IAttendenceService attendenceService)
+        public CreateStudentModel(IAttendenceService attendenceService, IHttpContextAccessor httpContextAccessor,IMapper mapper)
         {
             _attendenceService = attendenceService;
+            _httpContextAccessor = httpContextAccessor;
+            _mapper = mapper;
         }
 
         internal void CreateStudent()
         {
-            var student = new Student()
-            {
-                Name = Name,
-                StudentRollNumber = StudentRollNumber
-            };
+            var student = _mapper.Map<Student>(this);
             _attendenceService.CreateStudent(student);
 
         }

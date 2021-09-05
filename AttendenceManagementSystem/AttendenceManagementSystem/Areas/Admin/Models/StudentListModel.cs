@@ -5,20 +5,24 @@ using System.Threading.Tasks;
 using AttendenceManagementSystem.Attendence.Services;
 using AttendenceManagementSystem.Models;
 using Autofac;
+using Microsoft.AspNetCore.Http;
 
 namespace AttendenceManagementSystem.Areas.Admin.Models
 {
     public class StudentListModel
     {
         private readonly IAttendenceService _attendenceService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public StudentListModel()
         {
             _attendenceService = Startup.AutofacContainer.Resolve<IAttendenceService>();
+            _httpContextAccessor= Startup.AutofacContainer.Resolve<IHttpContextAccessor>();
         }
-        public StudentListModel(IAttendenceService attendenceService)
+        public StudentListModel(IAttendenceService attendenceService, IHttpContextAccessor httpContextAccessor)
         {
             _attendenceService = attendenceService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         internal object GetStudentData(DataTablesAjaxRequestModel dataTableModel)
