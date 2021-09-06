@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AttendenceManagementSystem.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AttendenceManagementSystem.Data", "AttendenceManagementSystem.Data\AttendenceManagementSystem.Data.csproj", "{F4800612-9934-48A1-B6A6-DE89D39FECDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttendenceManagementSystem.Common", "AttendenceManagementSystem.Common\AttendenceManagementSystem.Common.csproj", "{A771A111-0B28-47F5-A644-FAE325E21682}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AttendenceManagementSystem.Common", "AttendenceManagementSystem.Common\AttendenceManagementSystem.Common.csproj", "{A771A111-0B28-47F5-A644-FAE325E21682}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttendenceManagementSystem.Membership", "AttendenceManagementSystem.Membership\AttendenceManagementSystem.Membership.csproj", "{8680C1F6-F5DA-49ED-8B17-D30FD04AF0C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{A771A111-0B28-47F5-A644-FAE325E21682}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A771A111-0B28-47F5-A644-FAE325E21682}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A771A111-0B28-47F5-A644-FAE325E21682}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8680C1F6-F5DA-49ED-8B17-D30FD04AF0C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8680C1F6-F5DA-49ED-8B17-D30FD04AF0C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8680C1F6-F5DA-49ED-8B17-D30FD04AF0C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8680C1F6-F5DA-49ED-8B17-D30FD04AF0C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

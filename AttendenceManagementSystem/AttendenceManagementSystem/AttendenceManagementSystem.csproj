@@ -25,10 +25,12 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Identity\Pages\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AttendenceManagementSystem.Attendence\AttendenceManagementSystem.Attendence.csproj" />
+    <ProjectReference Include="..\AttendenceManagementSystem.Membership\AttendenceManagementSystem.Membership.csproj" />
   </ItemGroup>
 
 </Project>

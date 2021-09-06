@@ -16,6 +16,10 @@ using AttendenceManagementSystem.Attendence;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AttendenceManagementSystem.Attendence.Contexts;
+using AttendenceManagementSystem.Membership;
+using AttendenceManagementSystem.Membership.Contexts;
+using AttendenceManagementSystem.Membership.Entities;
+using AttendenceManagementSystem.Membership.Services;
 
 namespace AttendenceManagementSystem
 {
@@ -42,6 +46,8 @@ namespace AttendenceManagementSystem
 
             builder.RegisterModule(new AttendenceModule(connectionInfo.connectionString,
                 connectionInfo.migrationAssemblyName));
+            builder.RegisterModule(new MembershipModule(connectionInfo.connectionString,
+                connectionInfo.migrationAssemblyName));
             builder.RegisterModule(new WebModule());
         }
 
@@ -55,11 +61,39 @@ namespace AttendenceManagementSystem
 
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionInfo.connectionString));
-            
+                options.UseSqlServer(connectionInfo.connectionString, m => m.MigrationsAssembly(connectionInfo.migrationAssemblyName)));
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            // Identity customization started here
+            services
+                .AddIdentity<ApplicationUser, Role>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddUserManager<UserManager>()
+                .AddRoleManager<RoleManager>()
+                .AddSignInManager<SignInManager>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings.
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 1;
+
+                // Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+
+                // User settings.
+                options.User.AllowedUserNameCharacters =
+                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = false;
+            });
 
             services.ConfigureApplicationCookie(options =>
             {
