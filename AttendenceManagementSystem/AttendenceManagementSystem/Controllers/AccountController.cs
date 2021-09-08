@@ -41,7 +41,6 @@ namespace AttendenceManagementSystem.Controllers
             var model = new RegisterModel();
             model.ReturnUrl = returnUrl;
             model.ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-
             return View(model);
         }
 

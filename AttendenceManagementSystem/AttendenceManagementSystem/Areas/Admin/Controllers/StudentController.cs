@@ -5,11 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using AttendenceManagementSystem.Areas.Admin.Models;
 using AttendenceManagementSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 
 namespace AttendenceManagementSystem.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"), Authorize]
     public class StudentController : Controller
     {
         private readonly ILogger<StudentController> _logger;
