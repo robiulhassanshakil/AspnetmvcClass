@@ -59,7 +59,6 @@ namespace AttendenceManagementSystem.Areas.Admin.Controllers
         {
             var model = new EditStudentModel();
             model.LoadModelData(id);
-
             return View(model);
         }
         [HttpPost, ValidateAntiForgeryToken]
