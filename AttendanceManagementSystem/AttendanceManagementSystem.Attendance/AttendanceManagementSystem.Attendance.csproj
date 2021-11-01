@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>AttendanceManagementSystem.Attendance</RootNamespace>
+    <AssemblyName>AttendanceManagementSystem.Attendance</AssemblyName>
+  </PropertyGroup>
+
+  
+
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.8" />
+  </ItemGroup>
+
+  
+
+  <ItemGroup>
+    <ProjectReference Include="..\AttendanceManagementSystem.Data\AttendanceManagementSystem.Data.csproj" />
+  </ItemGroup>
+
+</Project>
