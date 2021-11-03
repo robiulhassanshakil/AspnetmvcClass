@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using AttendanceManagementSystem.Membership.Entities;
 using AttendanceManagementSystem.Membership.Contexts;
+using AttendanceManagementSystem.Membership.Seeds;
 
 namespace AttendanceManagementSystem.Membership.Contexts
 {
@@ -33,7 +34,17 @@ namespace AttendanceManagementSystem.Membership.Contexts
                     m => m.MigrationsAssembly(_migrationAssemblyName));
             }
 
+
             base.OnConfiguring(dbContextOptionsBuilder);
+        }
+
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Role>()
+                .HasData(DataSeed.Roles);
+
+            base.OnModelCreating(builder);
         }
     }
 

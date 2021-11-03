@@ -3,20 +3,28 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AttendanceManagementSystem.Api.Models;
+using AttendanceManagementSystem.Common.Utilities;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace AttendanceManagementSystem.Api.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController, Authorize(Policy = "AccessPermission")]
+    [EnableCors("AllowSites")]
     public class StudentController : ControllerBase
     {
         // GET: api/<StudentController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public object Get()
         {
-            return new string[] { "value1", "value2" };
+            var DataTableModel = new DataTablesAjaxRequestModel(Request);
+            var model = new StudentListModel();
+            var data = model.GetStudentData(DataTableModel);
+            return data;
         }
 
         // GET api/<StudentController>/5

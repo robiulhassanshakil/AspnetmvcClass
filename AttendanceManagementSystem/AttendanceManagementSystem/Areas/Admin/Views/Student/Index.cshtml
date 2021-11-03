@@ -76,16 +76,22 @@
     <script src="/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 
     <script>
-        $(function () {
+        $(function() {
+            ///Admin/Student/GetStudentData
             $('#Students').DataTable({
                 "processing": true,
                 "serverSide": true,
-                "ajax": "/Admin/Student/GetStudentData",
+                "ajax": {
+                    "url": "https://localhost:44327/api/student",
+                    "headers": {
+                        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2aWV3X3Blcm1pc3Npb24iOiJ0cnVlIiwibmJmIjoxNjM1OTM4NjQ5LCJleHAiOjE2MzY1NDM0NDksImlhdCI6MTYzNTkzODY0OSwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMjIiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMyMiJ9.jkR6GJsBbvky9rkj4JYNk4mipBu2zg1WIHrMN4bPc-4"
+                    }
+                },
                 "columnDefs": [
                     {
                         "orderable": false,
                         "targets": 2,
-                        "render": function (data, type, row) {
+                        "render": function(data, type, row) {
                             return `<button type="submit" class="btn btn-info btn-sm" onclick="window.location.href='/admin/Student/edit/${data}'" value='${data}'>
                                             <i class="fas fa-pencil-alt">
                                             </i>
@@ -100,16 +106,18 @@
                     }
                 ]
             });
-            $('#Students').on('click', '.show-bs-modal', function (event) {
-                var id = $(this).data("id");
-                var modal = $("#modal-default");
-                modal.find('.modal-body p').text('Are you sure you want to delete this record?')
-                $("#deleteId").val(id);
-                $("#deleteForm").attr("action", "/Admin/Student/delete")
-                modal.modal('show');
-            });
+            $('#Students').on('click',
+                '.show-bs-modal',
+                function(event) {
+                    var id = $(this).data("id");
+                    var modal = $("#modal-default");
+                    modal.find('.modal-body p').text('Are you sure you want to delete this record?')
+                    $("#deleteId").val(id);
+                    $("#deleteForm").attr("action", "/Admin/Student/delete")
+                    modal.modal('show');
+                });
 
-            $("#deleteButton").click(function () {
+            $("#deleteButton").click(function() {
                 $("#deleteForm").submit();
             });
 

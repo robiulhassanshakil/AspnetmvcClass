@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AttendanceManagementSystem.Areas.Admin.Models;
+using AttendanceManagementSystem.Common.Utilities;
 using AttendanceManagementSystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 
 namespace AttendanceManagementSystem.Areas.Admin.Controllers
 {
-    [Area("Admin"), Authorize]
+    [Area("Admin"), Authorize(Policy= "ViewPermission")]
     public class StudentController : Controller
     {
         private readonly ILogger<StudentController> _logger;
@@ -25,13 +26,13 @@ namespace AttendanceManagementSystem.Areas.Admin.Controllers
             return View(model);
         }
 
-        public JsonResult GetStudentData()
+        /*public JsonResult GetStudentData()
         {
             var DataTableModel = new DataTablesAjaxRequestModel(Request);
             var model = new StudentListModel();
             var data = model.GetStudentData(DataTableModel);
             return Json(data);
-        }
+        }*/
 
         public IActionResult Create()
         {

@@ -4,11 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using AttendanceManagementSystem.Attendance.Services;
 using AttendanceManagementSystem.Common.Utilities;
-using AttendanceManagementSystem.Models;
 using Autofac;
 using Microsoft.AspNetCore.Http;
 
-namespace AttendanceManagementSystem.Areas.Admin.Models
+namespace AttendanceManagementSystem.Api.Models
 {
     public class StudentListModel
     {
@@ -28,11 +27,20 @@ namespace AttendanceManagementSystem.Areas.Admin.Models
 
         internal object GetStudentData(DataTablesAjaxRequestModel dataTableModel)
         {
+            var PageIndex = 1;
+            var PageSize = 10;
+            var SearchText = string.Empty;
+            var SortText = "Name";
+            /* var data = _attendanceService.GetStudents(
+                 dataTableModel.PageIndex,
+                 dataTableModel.PageSize,
+                 dataTableModel.SearchText,
+                 dataTableModel.GetSortText(new string[] {"Name", "StudentRollNumber"}));*/
             var data = _attendanceService.GetStudents(
-                dataTableModel.PageIndex,
-                dataTableModel.PageSize,
-                dataTableModel.SearchText,
-                dataTableModel.GetSortText(new string[] {"Name", "StudentRollNumber"}));
+                PageIndex,
+                PageSize,
+                SearchText,
+                SortText);
 
             return new
             {
