@@ -76,13 +76,14 @@
     <script src="/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 
     <script>
-        $(function() {
-            ///Admin/Student/GetStudentData
+        $(function () {
+            //https://localhost:44327/api/student
+            
             $('#Students').DataTable({
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
-                    "url": "https://localhost:44327/api/student",
+                    "url": "/Admin/Student/GetStudentData",
                     "headers": {
                         "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2aWV3X3Blcm1pc3Npb24iOiJ0cnVlIiwibmJmIjoxNjM1OTM4NjQ5LCJleHAiOjE2MzY1NDM0NDksImlhdCI6MTYzNTkzODY0OSwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMjIiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMyMiJ9.jkR6GJsBbvky9rkj4JYNk4mipBu2zg1WIHrMN4bPc-4"
                     }
